@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Voting Results</h1>
+    <div>
+        {% for category, candidates_votes in voting_results.items() %}
+            <h2>{{ category }}</h2>
+            <ul>
+                {% for candidate, votes_count in candidates_votes.items() %}
+                    <li>{{ candidate }}: {{ votes_count }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+    <a href="{{ url_for('logout')}}">logout</a>
+</body>
+</html>

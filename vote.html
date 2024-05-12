@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniVote - Vote</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>UniVote - Vote</h1>
+    
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    
+    <form action="{{ url_for('vote') }}" method="POST">
+        <input type="hidden" name="voter_id" value="{{ current_user.id }}">
+        {% for category, candidates in candidates.items() %}
+        <h2>{{ category }}</h2>
+        {% for candidate in candidates %}
+        <input type="radio" id="{{ candidate }}" name="{{ category }}" value="{{ candidate }}">
+        <label for="{{ candidate }}">{{ candidate }}</label><br>
+        {% endfor %}
+        {% endfor %}
+        <input type="submit" value="Submit Vote">
+    </form>
+    <a href="{{ url_for('logout')}}">logout</a>
+</body>
+</html>
+
